@@ -1,0 +1,19 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: ticket-service
+  config:
+    import: classpath:common-infra.yml
+
+infra:
+  mysql:
+    schema: seck8s_ticket_db
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto

@@ -1,0 +1,25 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: user-service
+  config:
+    import: classpath:common-infra.yml   # 共享基础设施配置（含 MySQL/Redis/Nacos 地址）
+
+# 本服务数据库 schema（覆盖 common-infra.yml 中的默认值）
+infra:
+  mysql:
+    schema: seck8s_user_db
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+
+seck8s:
+  jwt:
+    secret: ${SECK8S_JWT_SECRET}
+    expire-minutes: 120

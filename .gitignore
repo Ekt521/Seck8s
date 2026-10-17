@@ -6,8 +6,19 @@ target/
 *.ear
 *.class
 
-# ===================== IDE 配置（IDEA） =====================
-# 忽略 IDEA 项目配置文件，避免不同电脑的 JDK/运行配置冲突
+# Maven 临时/中间文件
+.flattened-pom.xml
+dependency-reduced-pom.xml
+pom.xml.versionsBackup
+pom.xml.releaseBackup
+release.properties
+.mvn/timing.properties
+
+# Maven Wrapper 的 jar 需要提交，否则别人无法直接 ./mvnw
+!.mvn/wrapper/maven-wrapper.jar
+
+# ===================== IDE 配置 =====================
+# 不同电脑的 JDK / 运行配置不同，不提交
 .idea/
 *.iml
 *.iws
@@ -16,24 +27,94 @@ target/
 .settings/
 .project
 .classpath
+.factorypath
+
+# AI 工具的本地个人设置
+.claude/settings.local.json
 
 # ===================== 系统 & 日志 =====================
-# Windows 和 Mac 系统生成的无用文件
 Thumbs.db
+ehthumbs.db
+desktop.ini
 .DS_Store
+._*
+$RECYCLE.BIN/
 
-# 项目运行的日志（启动脚本指向的 logs 目录）
+# 服务运行日志
 logs/
 *.log
 
-# ===================== Python 压测缓存 =====================
-# deploy/seckill-test.py 运行时产生的缓存
+# JVM 崩溃转储（hs_err_pid*.log / replay_pid*.log）
+hs_err_pid*
+replay_pid*
+derby.log
+
+# Tomcat 运行时工作目录
+work/
+
+# ===================== Python 压测脚本 =====================
 __pycache__/
 *.pyc
 venv/
 .venv/
+.pytest_cache/
 
-# ===================== 中间件本地数据 =====================
-# 如果你用 Docker 或本地启动 Nacos/Redis 产生的数据挂载目录
-nacos/
-data/
+# ===================== 中间件本地数据挂载 =====================
+/nacos/
+/data/
+
+# ===================== JMeter 压测产物 =====================
+# .jmx 测试计划要提交；运行结果与 HTML 报告不提交
+deploy/jmeter/results/
+*.jtl
+
+# ===================== Android 客户端 =====================
+# local.properties 里是本机 Android SDK 路径
+android-client/local.properties
+android-client/.gradle/
+android-client/.kotlin/
+android-client/build/
+android-client/app/build/
+android-client/captures/
+*.apk
+*.aab
+*.keystore
+!debug.keystore
+
+# ===================== 前端 =====================
+# 目前是原生静态页面；以后引入 npm 时生效
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+
+# ===================== 密钥与本地配置 =====================
+# 真实密码/私钥/证书一律不要提交
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+secrets.yaml
+secrets.yml
+!secrets.example.yaml
+
+# kubeconfig 与集群凭据
+kubeconfig
+kubeconfig.*
+!kubeconfig.example
+*-kubeconfig
+
+# 本地启动用的真实密码（示例文件 local.env.example.cmd 需要提交）
+deploy/local.env.cmd
+
+# ===================== 本地临时文件 =====================
+*.tmp
+*.bak
+*.orig
+*.pid
+*.hprof

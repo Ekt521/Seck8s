@@ -1,0 +1,63 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: seck8s-gateway
+  config:
+    import: classpath:common-infra.yml
+  cloud:
+    gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - http://127.0.0.1:5173
+              - http://localhost:5173
+            allowedMethods: [GET, POST, PUT, DELETE, OPTIONS]
+            allowedHeaders: '*'
+            allowCredentials: false
+      discovery:
+        locator:
+          enabled: false
+      routes:
+        # 用户服务
+        - id: user-service #唯一路由标识
+          uri: lb://user-service #负载均衡的目标地址
+          predicates: #路由断言
+            - Path=/api/users/** #路径匹配
+        # 票务服务
+        - id: ticket-service
+          uri: lb://ticket-service
+          predicates:
+            - Path=/api/tickets/**
+        # 活动服务
+        - id: activity-service
+          uri: lb://activity-service
+          predicates:
+            - Path=/api/activities/**
+        # 订单服务（秒杀 + 订单）
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/seckill/**,/api/orders/**
+        # 支付服务
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/payments/**
+
+seck8s:
+  jwt:
+    secret: ${SECK8S_JWT_SECRET}
+    expire-minutes: 120
+  gateway:
+    # 免认证白名单（按路径前缀匹配）
+    whitelist:
+      - /api/users/login
+      - /api/users/register
+      - /api/tickets/**
+      - /api/activities/**
+    seckill-limit: 5
+    seckill-window-seconds: 1

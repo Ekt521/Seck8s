@@ -1,0 +1,19 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: activity-service
+  config:
+    import: classpath:common-infra.yml
+
+infra:
+  mysql:
+    schema: seck8s_activity_db
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto

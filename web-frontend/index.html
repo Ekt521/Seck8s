@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b6e69">
+  <title>Seck8s | 票务秒杀</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#tickets" aria-label="Seck8s 首页"><span class="brand-mark">S</span><span>SECK8S</span></a>
+    <nav aria-label="主导航"><a href="#tickets">票务</a><a href="#activities">秒杀活动</a><a href="#orders">我的订单</a></nav>
+    <div class="account"><span id="user-name" class="muted">未登录</span><button id="auth-button" class="button button-small">登录</button><button id="settings-button" class="icon-button" title="接口设置" aria-label="接口设置">⚙</button></div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div><p class="eyebrow">LIVE TICKETING</p><h1>抢到热爱，准时赴约。</h1><p class="hero-copy">演出、赛事与限定活动，一处查看，快速下单。</p><a class="button button-primary" href="#activities">查看秒杀活动</a></div>
+      <div class="hero-art" aria-hidden="true"><div class="spotlight one"></div><div class="spotlight two"></div><div class="stage-grid"></div><p>08<br><small>SEPT</small></p></div>
+    </section>
+
+    <section id="tickets" class="section"><div class="section-heading"><div><p class="eyebrow">DISCOVER</p><h2>正在售票</h2></div><label class="search"><span>⌕</span><input id="ticket-search" placeholder="搜索演出或活动"></label></div><div id="ticket-list" class="ticket-grid"><p class="empty">正在读取票务信息...</p></div></section>
+
+    <section id="activities" class="section activity-section"><div class="section-heading"><div><p class="eyebrow">LIMITED RELEASE</p><h2>秒杀活动</h2></div><button id="refresh-activities" class="text-button">刷新</button></div><div id="activity-list" class="activity-list"><p class="empty">正在读取活动信息...</p></div></section>
+
+    <section id="orders" class="section"><div class="section-heading"><div><p class="eyebrow">MY ACCOUNT</p><h2>我的订单</h2></div><button id="refresh-orders" class="text-button">刷新</button></div><div id="order-list" class="orders"><p class="empty">登录后可查看订单。</p></div></section>
+  </main>
+
+  <dialog id="auth-dialog" class="dialog"><form id="auth-form" method="dialog"><div class="dialog-heading"><h2 id="auth-title">登录</h2><button class="icon-button" value="cancel" aria-label="关闭">×</button></div><p class="dialog-hint" id="auth-hint">登录后可参与秒杀并管理订单。</p><label>用户名<input id="username" required autocomplete="username"></label><label>密码<input id="password" type="password" required minlength="6" autocomplete="current-password"></label><div id="registration-fields" hidden><label>手机号<input id="phone" inputmode="tel"></label><label>真实姓名<input id="real-name"></label><label>身份证号<input id="id-card"></label></div><p id="auth-error" class="form-error"></p><button id="submit-auth" class="button button-primary full" value="default">登录</button><button id="auth-mode-toggle" type="button" class="text-button centered">没有账号？注册</button></form></dialog>
+  <dialog id="settings-dialog" class="dialog"><form id="settings-form" method="dialog"><div class="dialog-heading"><h2>接口设置</h2><button class="icon-button" value="cancel" aria-label="关闭">×</button></div><label>网关地址<input id="api-base" type="url" required placeholder="http://127.0.0.1:8080"></label><p class="dialog-hint">更改后会重新加载票务与活动。</p><button class="button button-primary full" value="default">保存</button></form></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

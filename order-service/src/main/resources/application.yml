@@ -1,0 +1,26 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: order-service
+  config:
+    import: classpath:common-infra.yml
+
+infra:
+  mysql:
+    schema: seck8s_order_db
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+
+seck8s:
+  order:
+    pay-timeout-minutes: 15          # 订单支付超时时间，超时自动取消+库存回补
+  outbox:
+    scan-batch: 100                  # 发件箱每轮扫描条数
+    max-retry: 10                    # 发件箱最大重试次数

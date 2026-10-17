@@ -1,0 +1,19 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: notification-service
+  config:
+    import: classpath:common-infra.yml
+
+infra:
+  mysql:
+    schema: seck8s_notification_db
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
